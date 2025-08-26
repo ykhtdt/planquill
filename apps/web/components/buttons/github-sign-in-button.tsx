@@ -6,20 +6,20 @@ import { cn } from "@workspace/ui/lib/utils"
 import { GithubIcon } from "@/components/icons/github-icon"
 import { Button } from "@workspace/ui/components/button"
 
-type GithubSigninButtonProps = React.ComponentProps<typeof Button>
+type GithubSignInButtonProps = React.ComponentProps<typeof Button>
 
-export const GithubSigninButton = ({
+export const GithubSignInButton = ({
   variant = "outline",
   className,
   children,
   ...props
-}: GithubSigninButtonProps) => {
-  const handleGithubSignin = () => {
+}: GithubSignInButtonProps) => {
+  const handleGithubSignIn = () => {
     signIn("github")
   }
 
   return (
-    <Button variant={variant} onClick={handleGithubSignin} className={cn("flex items-center gap-2", className)} {...props}>
+    <Button variant={variant} onClick={handleGithubSignIn} className={cn("flex items-center gap-2", className)} {...props}>
       {children ?? (
         <>
           <GithubIcon />

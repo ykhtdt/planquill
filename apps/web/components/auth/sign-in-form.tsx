@@ -8,7 +8,7 @@ import {
 } from "@workspace/ui/components/card"
 
 import { GithubIcon } from "@/components/icons/github-icon"
-import { GithubSigninButton } from "@/components/buttons/github-signin-button"
+import { GithubSignInButton } from "@/components/buttons/github-sign-in-button"
 
 type SignInFormProps = React.ComponentProps<"div">
 
@@ -46,9 +46,9 @@ export const SignInForm = ({
                 <span className="relative z-10 bg-background px-2 text-muted-foreground">Or</span>
               </div>
               <div className="grid grid-cols-2 gap-4">
-                <GithubSigninButton>
+                <GithubSignInButton>
                   <GithubIcon className="w-4 h-4" />
-                </GithubSigninButton>
+                </GithubSignInButton>
                 <Button variant="outline" className="w-full">
                   <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
                     <path
