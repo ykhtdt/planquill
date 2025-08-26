@@ -1,9 +1,20 @@
-export const GithubIcon = () => {
+import type { SVGProps } from "react"
+
+import { cn } from "@workspace/ui/lib/utils"
+
+type GithubIconProps = SVGProps<SVGSVGElement>
+
+export const GithubIcon = ({
+  className,
+  ...props
+}: GithubIconProps) => {
   return (
     <svg
       role="img"
       viewBox="0 0 24 24"
       xmlns="http://www.w3.org/2000/svg"
+      className={cn("w-4 h-4", className)}
+      {...props}
     >
       <title>GitHub</title>
       <path
