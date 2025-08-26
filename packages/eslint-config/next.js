@@ -55,13 +55,8 @@ export const nextJsConfig = [
         "error",
         "unix"
       ],
-      "indent": [
-        "error",
-        2,
-        {
-          "SwitchCase": 1
-        }
-      ],
+      // Default: turn off here, re-enable via file-specific overrides for JS/TS only
+      "indent": "off",
       "no-tabs": [
         "error"
       ],
@@ -75,6 +70,46 @@ export const nextJsConfig = [
       ],
       "eol-last": ["error", "always"],
       "@typescript-eslint/no-explicit-any": "off"
+    },
+  },
+  // Enforce core indent for JS/TS (not TSX/JSX)
+  {
+    files: ["**/*.{js,ts}"],
+    rules: {
+      "indent": [
+        "error",
+        2,
+        {
+          "SwitchCase": 1
+        }
+      ],
+    },
+  },
+  // Disable core indent for TSX/JSX and use React's JSX indentation rules instead
+  {
+    files: ["**/*.{tsx,jsx}"],
+    rules: {
+      // Keep core indent for non-JSX code, but ignore JSX nodes to avoid recursion issues
+      "indent": [
+        "error",
+        2,
+        {
+          "SwitchCase": 1,
+          "ignoredNodes": [
+            "JSXElement",
+            "JSXElement *",
+            "JSXFragment",
+            "JSXFragment *",
+            "JSXExpressionContainer",
+            "JSXOpeningElement",
+            "JSXClosingElement",
+            "JSXAttribute",
+            "JSXSpreadAttribute"
+          ]
+        }
+      ],
+      "react/jsx-indent": ["error", 2],
+      "react/jsx-indent-props": ["error", 2],
     },
   },
 ]
