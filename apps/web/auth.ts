@@ -1,8 +1,12 @@
 import NextAuth, { type NextAuthResult } from "next-auth"
 import GitHub from "next-auth/providers/github"
+import Google from "next-auth/providers/google"
 
 const nextAuth: NextAuthResult = NextAuth({
-  providers: [GitHub],
+  providers: [
+    GitHub,
+    Google,
+  ],
 })
 
 export const handlers: NextAuthResult["handlers"] = nextAuth.handlers
