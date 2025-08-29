@@ -6,6 +6,7 @@ import {
   auth,
   signOut,
 } from "@/auth"
+import { PlanquillIcon } from "@/components/icons/planquill-icon"
 
 export default async function Page() {
   const session = await auth()
@@ -25,12 +26,8 @@ export default async function Page() {
         <div className="w-full max-w-9xl mx-auto px-4 sm:px-2">
           <div className="h-(--header-height) flex items-center justify-between gap-2">
             <div className="flex items-center gap-2">
-              <Link href="/" className="[&_svg]:size-7 [&_svg]:pointer-events-none">
-                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" fill="none" stroke="currentColor" strokeWidth="4" strokeLinecap="round" strokeLinejoin="round">
-                  <circle cx="32" cy="32" r="20.736" strokeDasharray="116.64 51.84" />
-                  <circle cx="32" cy="32" r="12.96" strokeDasharray="64.8 51.84" />
-                  <path d="M16.448 34.592 L25.52 43.664 L46.256 17.744" />
-                </svg>
+              <Link href="/">
+                <PlanquillIcon className="size-7 pointer-events-none" />
                 <span className="sr-only">Planquill</span>
               </Link>
             </div>
