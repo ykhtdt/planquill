@@ -2,12 +2,12 @@ import type { SVGProps } from "react"
 
 import { cn } from "@workspace/ui/lib/utils"
 
-type PlanquillIcon = SVGProps<SVGSVGElement>
+type PlanquillIconProps = SVGProps<SVGSVGElement>
 
 export const PlanquillIcon = ({
   className,
   ...props
-}: PlanquillIcon) => {
+}: PlanquillIconProps) => {
   return (
     <svg
       role="img"
