@@ -39,10 +39,10 @@ export default function Layout({
         </div>
       </header>
       <main className="flex flex-col flex-1 bg-background">
-        <div className="flex flex-col flex-1 w-full max-w-9xl mx-auto px-4 sm:px-2 md:px-0">
+        <div className="flex flex-col flex-1 w-full max-w-9xl mx-auto">
           <SidebarProvider className="min-h-full bg-background">
             {sidebar}
-            <div className="bg-background w-full h-full flex-1 md:px-2 lg:px-0">
+            <div className="bg-background w-full h-full flex-1">
               <div className="flex items-stretch text-sm sm:text-base w-full">
                 <div className="flex flex-col flex-1">
                   <div id="content">
