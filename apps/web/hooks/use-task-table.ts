@@ -16,75 +16,14 @@ export const useTaskTable = () => {
   const [data, setData] = React.useState<TaskItem[]>([])
   const [editingCell, setEditingCell] = React.useState<Cell | null>(null)
 
-  const sortedData = React.useMemo(() => {
-    return data.toSorted((a, b) => a.order - b.order)
-  }, [data])
-
-  const maxOrder = React.useMemo(() => {
-    return data.reduce((max, item) => Math.max(max, item.order), -1)
-  }, [data])
-
   const onCreateRowAtEnd = React.useCallback(() => {
     const newRow: TaskItem = {
       id: `Task-${Date.now()}`,
       title: "",
       completed: false,
-      order: maxOrder + 1,
     }
     setData((prev) => [...prev, newRow])
-  }, [maxOrder])
-
-  const onCreateRowBefore = React.useCallback((rowId: string) => {
-    const targetIndex = sortedData.findIndex(item => item.id === rowId)
-
-    if (targetIndex === -1) {
-      return
-    }
-
-    const targetRow = sortedData[targetIndex]
-    if (!targetRow) {
-      return
-    }
-
-    const previousRow = targetIndex > 0 ? sortedData[targetIndex - 1] : null
-    const previousOrder = previousRow ? previousRow.order : targetRow.order - 1
-    const newOrder = (previousOrder + targetRow.order) / 2
-
-    const newRow: TaskItem = {
-      id: `Task-${Date.now()}`,
-      title: "",
-      completed: false,
-      order: newOrder,
-    }
-
-    setData(prev => [...prev, newRow])
-  }, [sortedData])
-
-  const onCreateRowAfter = React.useCallback((rowId: string) => {
-    const targetIndex = sortedData.findIndex(item => item.id === rowId)
-
-    if (targetIndex === -1) {
-      return
-    }
-
-    const targetRow = sortedData[targetIndex]
-    if (!targetRow) {
-      return
-    }
-
-    const nextRow = targetIndex < sortedData.length - 1 ? sortedData[targetIndex + 1] : null
-    const nextOrder = nextRow ? nextRow.order : targetRow.order + 1
-    const newOrder = (targetRow.order + nextOrder) / 2
-
-    const newRow: TaskItem = {
-      id: `Task-${Date.now()}`,
-      title: "",
-      completed: false,
-      order: newOrder,
-    }
-
-    setData(prev => [...prev, newRow])
-  }, [sortedData])
+  }, [])
 
   const deleteRow = React.useCallback((id: string) => {
     setData(prevData => prevData.filter(row => row.id !== id))
@@ -129,7 +68,7 @@ export const useTaskTable = () => {
   )
 
   const table = useReactTable({
-    data: sortedData,
+    data: data,
     columns,
     getCoreRowModel: getCoreRowModel(),
   })
@@ -138,7 +77,5 @@ export const useTaskTable = () => {
     table,
     columns,
     onCreateRowAtEnd,
-    onCreateRowBefore,
-    onCreateRowAfter,
   }
 }
