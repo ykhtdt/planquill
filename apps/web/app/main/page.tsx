@@ -14,7 +14,7 @@ export default function Page() {
   const isCollapsed = state === "collapsed"
 
   return (
-    <div className={cn("min-h-svh p-2 space-y-2", isCollapsed ? "border-r" : "border-x")}>
+    <div className={cn("grid items-start p-2 gap-2 min-h-[calc(100svh-var(--header-height)-var(--footer-height))] grid-rows-[auto_1fr]", isCollapsed ? "border-r" : "border-x")}>
       <div className="flex items-center justify-between">
         <SidebarTrigger />
       </div>

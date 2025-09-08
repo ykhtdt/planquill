@@ -136,6 +136,7 @@ export const useTaskTable = () => {
 
   return {
     table,
+    columns,
     onCreateRowAtEnd,
     onCreateRowBefore,
     onCreateRowAfter,

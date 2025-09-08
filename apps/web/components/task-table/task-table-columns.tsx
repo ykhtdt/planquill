@@ -35,6 +35,7 @@ export const getTaskTableColumns = ({
   return [
     {
       id: "select",
+      size: 10,
       header: ({ table }) => (
         <Checkbox
           checked={
@@ -52,8 +53,6 @@ export const getTaskTableColumns = ({
           aria-label="Select row"
         />
       ),
-      enableSorting: false,
-      enableHiding: false,
     },
     {
       accessorKey: "title",
@@ -72,7 +71,8 @@ export const getTaskTableColumns = ({
       },
     },
     {
-      accessorKey: "status",
+      id: "status",
+      size: 20,
       header: "Status",
       cell: ({ row }) => (
         <Checkbox
@@ -86,6 +86,7 @@ export const getTaskTableColumns = ({
     },
     {
       id: "actions",
+      size: 10,
       cell: ({ row }) => (
         <Button variant="ghost" size="icon" onClick={() => onDelete(row.original.id)}>
           <EllipsisIcon />

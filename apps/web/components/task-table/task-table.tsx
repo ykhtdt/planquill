@@ -4,78 +4,92 @@ import * as React from "react"
 
 import { flexRender } from "@tanstack/react-table"
 
-import { cn } from "@workspace/ui/lib/utils"
 import { Button } from "@workspace/ui/components/button"
+import {
+  Table,
+  TableBody,
+  TableCell,
+  TableHead,
+  TableHeader,
+  TableRow,
+} from "@workspace/ui/components/table"
 
-import { TaskTableCreateRowTrigger } from "./task-table-create-row-trigger"
 import { useTaskTable } from "@/hooks/use-task-table"
 
 export const TaskTable = () => {
   const {
     table,
+    columns,
     onCreateRowAtEnd,
-    onCreateRowBefore,
-    onCreateRowAfter,
   } = useTaskTable()
 
-  const isEmptyData = table.getRowModel().rows?.length === 0
-
   return (
-    <div className="space-y-2">
-      <div className="relative overflow-visible rounded-sm border">
-        <div className={cn("grid grid-cols-[auto_3fr_0.5fr_auto] font-medium", isEmptyData && "border-b")}>
-          {table.getHeaderGroups().map((headerGroup) =>
-            headerGroup.headers.map((header) => (
-              <div key={header.id} className="flex items-center p-2 text-sm h-11">
-                {header.isPlaceholder
-                  ? null
-                  : flexRender(
-                    header.column.columnDef.header,
-                    header.getContext()
-                  )}
-              </div>
-            ))
-          )}
-        </div>
+    <div className="flex flex-col gap-2 overflow-auto">
+      <div className="overflow-hidden rounded-md border">
+        <Table>
+          <TableHeader>
+            {table.getHeaderGroups().map((headerGroup) => (
+              <TableRow key={headerGroup.id}>
+                {headerGroup.headers.map((header) => (
+                  <TableHead
+                    key={header.id}
+                    style={{
+                      width: header.getSize(),
+                      maxWidth: header.getSize(),
+                      minWidth: header.column.columnDef.minSize || 0
+                    }}
+                  >
+                    {header.isPlaceholder
+                      ? null
+                      : flexRender(
+                        header.column.columnDef.header,
+                        header.getContext()
+                      )}
+                  </TableHead>
+                ))}
+              </TableRow>
+            ))}
+          </TableHeader>
 
-        <div className="relative">
-          {!isEmptyData ? (
-            table.getRowModel().rows.map((row, index) => (
-              <div key={row.id} className="border-t">
-                <TaskTableCreateRowTrigger
-                  rowId={row.original.id}
-                  onCreate={onCreateRowBefore}
-                />
-                <div className="grid grid-cols-[auto_3fr_0.5fr_auto] hover:bg-muted/50 transition-colors">
+          <TableBody>
+            {table.getRowModel().rows?.length ? (
+              table.getRowModel().rows.map((row) => (
+                <TableRow key={row.id}>
                   {row.getVisibleCells().map((cell) => (
-                    <div
+                    <TableCell
                       key={cell.id}
-                      className="flex items-center justify-center text-sm h-12 p-2 min-w-0"
+                      style={{
+                        width: cell.column.getSize(),
+                        maxWidth: cell.column.getSize(),
+                        minWidth: cell.column.columnDef.minSize || 0
+                      }}
                     >
-                      {flexRender(cell.column.columnDef.cell, cell.getContext())}
-                    </div>
+                      {flexRender(
+                        cell.column.columnDef.cell,
+                        cell.getContext()
+                      )}
+                    </TableCell>
                   ))}
-                </div>
-                {index === table.getRowModel().rows.length - 1 && (
-                  <TaskTableCreateRowTrigger
-                    rowId={row.original.id}
-                    onCreate={onCreateRowAfter}
-                  />
-                )}
-              </div>
-            ))
-          ) : (
-            <div className="flex items-center justify-center h-24 p-4">
-              <Button variant="outline" size="sm" onClick={onCreateRowAtEnd} className="text-sm rounded-sm">
-                Create Task
-              </Button>
-            </div>
-          )}
-        </div>
+                </TableRow>
+              ))
+            ) : (
+              <TableRow>
+                <TableCell colSpan={columns.length} className="h-24 text-center">
+                  <Button variant="outline" size="sm" onClick={onCreateRowAtEnd} className="text-sm rounded-sm">
+                    Create Task
+                  </Button>
+                </TableCell>
+              </TableRow>
+            )}
+          </TableBody>
+        </Table>
       </div>
-      <Button variant="outline" size="sm" onClick={onCreateRowAtEnd} className="text-sm rounded-sm">
-        Create Task
-      </Button>
-    </div>
+
+      <div className="flex items-start">
+        <Button variant="outline" size="sm" onClick={onCreateRowAtEnd} className="text-sm rounded-sm">
+          Create Task
+        </Button>
+      </div>
+    </div >
   )
 }

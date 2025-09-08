@@ -31,9 +31,9 @@ export const TaskTableEditableCell = ({
     <Button
       variant="ghost"
       onClick={onClick}
-      className={cn("w-full h-full bg-muted/50 hover:bg-muted rounded-sm px-2 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 justify-start min-w-0", className)}
+      className={cn("block w-full px-2 bg-muted/50 rounded-sm focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 justify-start", className)}
     >
-      <span className="truncate text-left">
+      <span className="block w-full truncate text-left">
         {showValue ? value : ""}
       </span>
     </Button>
